@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra Cứu Kiến Thức & Công Thức Toán - Tin 10</title>
+    <!-- Tải Tailwind CSS để xây dựng giao diện hiện đại, chuẩn responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font chữ Inter chuẩn giao diện công nghệ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Tùy chỉnh thanh cuộn mượt mà */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .formula-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+            border-left: 4px solid #2563eb;
+        }
+
+        /* Hộp giới thiệu nhóm khi mở trang */
+        .welcome-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.25rem; background: rgba(15, 23, 42, .72);
+            backdrop-filter: blur(8px);
+            animation: welcomeFade .35s ease both;
+        }
+        .welcome-card {
+            width: 100%; max-width: 560px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,.7); border-radius: 24px;
+            background: white; box-shadow: 0 25px 80px rgba(0,0,0,.28);
+            animation: welcomePop .45s cubic-bezier(.2,.8,.2,1) both;
+        }
+        @keyframes welcomeFade { from {opacity:0} to {opacity:1} }
+        @keyframes welcomePop { from {opacity:0; transform:translateY(18px) scale(.97)} to {opacity:1; transform:translateY(0) scale(1)} }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- MÀN HÌNH GIỚI THIỆU NHÓM KHI VỪA MỞ TRANG -->
+    <div id="welcomeOverlay" class="welcome-overlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+        <div class="welcome-card">
+            <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-600 px-7 py-8 text-center text-white">
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/30">
+                    <svg class="h-9 w-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3zM19 16l1 2.5 2.5 1-2.5 1L19 23l-1-2.5-2.5-1 2.5-1 1-2.5z"/>
+                    </svg>
+                </div>
+                <p class="mb-2 text-xs font-bold uppercase tracking-[.22em] text-blue-100">Lời giới thiệu</p>
+                <h2 id="welcomeTitle" class="text-2xl sm:text-3xl font-extrabold tracking-tight">Web này có sự hỗ trợ của AI!</h2>
+                <p class="mt-2 text-sm text-blue-100">Sản phẩm thực hiện bởi Thành viên nhóm 7</p>
+            </div>
+            <div class="px-7 py-7 sm:px-9">
+                <h3 class="mb-5 text-center text-lg font-extrabold text-slate-900">THÀNH VIÊN NHÓM 7</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 rounded-xl border border-blue-100 bg-blue-50/80 p-3.5">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">01</span>
+                        <div><p class="text-xs font-semibold uppercase tracking-wide text-blue-600">Nhóm trưởng</p><p class="font-bold text-slate-900">Phạm Tấn Phúc</p></div>
+                    </div>
+                    <div class="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3.5">
+                        <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-700 text-sm font-bold text-white">02</span>
+                        <div><p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Nhóm phó</p><p class="font-bold text-slate-900">Danh Thị Nhi</p></div>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Thành viên</p>
+                        <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                            <p class="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-800">Trần Trung Tính</p>
+                            <p class="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-800">Trần Đăng Khoa</p>
+                            <p class="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-slate-800">Trần Minh Khang</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="closeWelcome()" class="mt-6 w-full rounded-xl bg-blue-600 px-5 py-3 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 active:scale-[.99]">
+                    Bắt đầu tra cứu
+                    <span aria-hidden="true">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- HEADER CỐ ĐỊNH TRÊN CÙNG -->
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Logo & Tiêu đề -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/20 shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">Toán – Tin 10 <span class="text-blue-600">Hub</span></h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">Tra cứu công thức, bài học & sơ đồ trực quan</p>
+                </div>
+            </div>
+
+            <!-- Nút mở Sổ tay ôn tập -->
+            <button onclick="toggleNotebook(true)" class="relative inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-semibold px-4 py-2.5 rounded-xl shadow-sm shadow-blue-600/20 transition-all text-sm">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                </svg>
+                <span>Sổ tay ôn tập</span>
+                <span id="notebookCount" class="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold bg-white text-blue-700 rounded-full">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- KHU VỰC TÌM KIẾM HERO -->
+    <section class="bg-white border-b border-slate-200 pt-8 pb-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 mb-3">
+                <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                Chương trình GDPT Mới – Lớp 10
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+                Tìm kiếm nhanh Bài học & Công thức
+            </h2>
+            <p class="text-sm sm:text-base text-slate-600 mb-6">
+                Gõ tên bài, khái niệm hoặc công thức (hỗ trợ cả tiếng Việt có dấu và không dấu)
+            </p>
+
+            <!-- Ô tìm kiếm lớn -->
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-blue-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    oninput="handleSearch()"
+                    placeholder="Ví dụ: định lí tam giác, hệ thức lượng, nhị phân, vòng lặp for..." 
+                    class="w-full pl-12 pr-12 py-3.5 sm:py-4 bg-slate-50 border-2 border-slate-200 focus:border-blue-600 focus:bg-white rounded-2xl text-slate-900 placeholder-slate-400 text-sm sm:text-base outline-none transition-all shadow-sm"
+                >
+                <button 
+                    id="clearSearchBtn" 
+                    onclick="clearSearch()" 
+                    class="hidden absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600"
+                    title="Xóa tìm kiếm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Gợi ý từ khóa tìm kiếm nhanh -->
+            <div class="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs">
+                <span class="text-slate-500 font-medium">Gợi ý nhanh:</span>
+                <button onclick="quickSearch('định lí tam giác')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 font-medium transition-colors">định lí tam giác</button>
+                <button onclick="quickSearch('vectơ')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 font-medium transition-colors">vectơ</button>
+                <button onclick="quickSearch('hàm số bậc hai')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 font-medium transition-colors">hàm số bậc hai</button>
+                <button onclick="quickSearch('nhị phân')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 font-medium transition-colors">hệ nhị phân</button>
+                <button onclick="quickSearch('python')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-600 font-medium transition-colors">cấu trúc Python</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- THANH LỌC CHUYÊN ĐỀ -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <!-- Các nút lọc môn & phân môn -->
+            <div id="filterContainer" class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+                <!-- Nút lọc sẽ được render bằng JS -->
+            </div>
+
+            <!-- Hiển thị số kết quả -->
+            <div class="text-sm text-slate-600 shrink-0">
+                Tìm thấy <span id="resultCount" class="font-bold text-blue-600">0</span> bài học
+            </div>
+        </div>
+
+        <!-- LƯỚI DANH SÁCH BÀI HỌC & CÔNG THỨC -->
+        <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Nội dung thẻ sẽ được render động ở đây -->
+        </div>
+
+        <!-- Trạng thái không tìm thấy kết quả -->
+        <div id="emptyState" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-slate-200">
+            <div class="w-16 h-16 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">Không tìm thấy kiến thức phù hợp</h3>
+            <p class="text-sm text-slate-500 max-w-md mx-auto mb-5">Thử tìm bằng từ khóa ngắn gọn hơn như "tam giác", "tập hợp", "mạng" hoặc đặt lại bộ lọc.</p>
+            <button onclick="resetFilters()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors">
+                Xem tất cả bài học
+            </button>
+        </div>
+    </main>
+
+    <!-- MODAL XEM CHI TIẾT BÀI HỌC & FULL CÔNG THỨC -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <!-- Nền mờ -->
+            <div onclick="closeDetailModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"></div>
+
+            <!-- Hộp nội dung -->
+            <div class="relative inline-block w-full max-w-3xl bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all my-8 border border-slate-200">
+                <!-- Header Modal -->
+                <div class="bg-blue-600 px-6 py-4 flex items-center justify-between text-white">
+                    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider bg-blue-700/80 px-3 py-1 rounded-lg">
+                        <span id="modalSubject">Toán 10</span>
+                        <span>•</span>
+                        <span id="modalChapter">Chương III</span>
+                    </div>
+                    <button onclick="closeDetailModal()" class="p-1.5 rounded-lg hover:bg-blue-700 text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Body Modal -->
+                <div class="p-6 max-h-[80vh] overflow-y-auto space-y-6">
+                    <div>
+                        <div id="modalLessonBadge" class="inline-block text-sm font-bold text-blue-600 mb-1">Bài 6</div>
+                        <h3 id="modalTitle" class="text-2xl font-extrabold text-slate-900">Hệ thức lượng trong tam giác</h3>
+                        <p id="modalSummary" class="mt-2 text-slate-600 text-sm leading-relaxed"></p>
+                    </div>
+
+                    <!-- Khung hình minh họa SVG lớn -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col items-center">
+                        <div id="modalSvgContainer" class="w-full max-w-md flex justify-center"></div>
+                        <p id="modalSvgCaption" class="text-xs text-slate-500 mt-2 italic text-center"></p>
+                    </div>
+
+                    <!-- Danh sách công thức đóng khung -->
+                    <div>
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg>
+                            Công thức & Kiến thức trọng tâm cần nhớ
+                        </h4>
+                        <div id="modalFormulasList" class="space-y-3"></div>
+                    </div>
+
+                    <!-- Ví dụ áp dụng -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4">
+                        <h4 class="text-sm font-bold text-amber-900 mb-1 flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/>
+                            </svg>
+                            Ví dụ áp dụng nhanh
+                        </h4>
+                        <p id="modalExample" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line"></p>
+                    </div>
+                </div>
+
+                <!-- Footer Modal -->
+                <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                    <button id="modalSaveBtn" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-colors">
+                        <!-- Text cập nhật bằng JS -->
+                    </button>
+                    <button onclick="closeDetailModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-semibold text-sm transition-colors">
+                        Đóng lại
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NGĂN KÉO (DRAWER) SỔ TAY ÔN TẬP CÁ NHÂN -->
+    <div id="notebookDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleNotebook(false)" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-slate-200">
+                <!-- Header Drawer -->
+                <div class="px-6 py-5 bg-blue-600 text-white flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                        </svg>
+                        <div>
+                            <h3 class="font-bold text-lg leading-none">Sổ tay ôn tập</h3>
+                            <p class="text-xs text-blue-100 mt-1">Các bài học & công thức bạn đã lưu</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleNotebook(false)" class="p-1.5 rounded-lg hover:bg-blue-700 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Danh sách đã lưu -->
+                <div id="notebookList" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Render động bằng JS -->
+                </div>
+
+                <!-- Footer Drawer -->
+                <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-3">
+                    <button onclick="clearNotebook()" id="clearNotebookBtn" class="text-sm font-semibold text-red-600 hover:text-red-700 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors">
+                        Xóa tất cả
+                    </button>
+                    <button onclick="toggleNotebook(false)" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition-colors">
+                        Tiếp tục tra cứu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THÔNG BÁO TOAST NHỎ GÓC DƯỚI -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-2.5 text-sm font-medium">
+            <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+            <span id="toastMessage">Đã sao chép công thức!</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6 px-4 text-center text-sm text-slate-500">
+        <p>Hệ thống Tra cứu Kiến thức & Công thức <strong>Toán – Tin Lớp 10</strong></p>
+        <p class="text-xs mt-1 text-slate-400">Thiết kế tối ưu chạy trực tiếp trên trình duyệt & GitHub Pages</p>
+    </footer>
+
+    <!-- JAVASCRIPT XỬ LÝ DỮ LIỆU & TƯƠNG TÁC -->
+    <script>
+        // 1. CƠ SỞ DỮ LIỆU KIẾN THỨC TOÁN 10 & TIN HỌC 10 (CHUẨN SGK KẾT NỐI TRI THỨC)
+        const lessonsData = [
+            {
+                id: "toan-bai-6",
+                subject: "Toán 10",
+                category: "Hình học & Vectơ",
+                chapter: "Chương III: Hệ thức lượng trong tam giác",
+                lessonNumber: "Bài 6",
+                title: "Hệ thức lượng trong tam giác (Định lí Côsin & Định lí Sin)",
+                keywords: "dinh li tam giac dinh li cosin dinh li sin dien tich tam giac ban kinh duong tron ngoai tiep noi tiep cong thuc heron",
+                summary: "Cung cấp các công thức tính cạnh, góc và diện tích của một tam giác bất kì dựa trên độ dài các cạnh và số đo góc.",
+                svgCaption: "Tam giác ABC với các cạnh đối diện a, b, c và bán kính đường tròn ngoại tiếp R",
+                svg: `<svg viewBox="0 0 320 200" class="w-full h-44">
+                        <circle cx="160" cy="105" r="82" fill="none" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="4 4"/>
+                        <polygon points="160,23 86,142 238,132" fill="#dbeafe" fill-opacity="0.6" stroke="#2563eb" stroke-width="2.5"/>
+                        <circle cx="160" cy="105" r="3" fill="#1d4ed8"/>
+                        <line x1="160" y1="105" x2="238" y2="132" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <text x="196" y="114" font-size="12" font-weight="bold" fill="#1d4ed8">R</text>
+                        <text x="155" y="16" font-size="14" font-weight="bold" fill="#0f172a">A</text>
+                        <text x="70" y="150" font-size="14" font-weight="bold" fill="#0f172a">B</text>
+                        <text x="245" y="138" font-size="14" font-weight="bold" fill="#0f172a">C</text>
+                        <text x="160" y="154" font-size="13" font-weight="bold" fill="#2563eb">a</text>
+                        <text x="205" y="75" font-size="13" font-weight="bold" fill="#2563eb">b</text>
+                        <text x="110" y="80" font-size="13" font-weight="bold" fill="#2563eb">c</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Định lí Côsin (Tính cạnh & góc)",
+                        code: "a² = b² + c² - 2bc·cosA\nb² = a² + c² - 2ac·cosB\nc² = a² + b² - 2ab·cosC\n⇒ cosA = (b² + c² - a²) / (2bc)",
+                        note: "Dùng khi biết 2 cạnh và góc xen giữa, hoặc biết cả 3 cạnh để tìm góc."
+                    },
+                    {
+                        name: "2. Định lí Sin",
+                        code: "a / sinA = b / sinB = c / sinC = 2R",
+                        note: "R là bán kính đường tròn ngoại tiếp tam giác ABC."
+                    },
+                    {
+                        name: "3. Các công thức tính diện tích tam giác (S)",
+                        code: "S = ½·a·hₐ = ½·b·c·sinA\nS = (a·b·c) / (4R) = p·r\nS = √[p(p - a)(p - b)(p - c)]  (Công thức Heron)",
+                        note: "Với p = (a + b + c)/2 là nửa chu vi; r là bán kính đường tròn nội tiếp."
+                    }
+                ],
+                example: "Cho tam giác ABC có b = 8, c = 5 và góc A = 60°.\n• Tính cạnh a: a² = 8² + 5² - 2·8·5·cos60° = 64 + 25 - 40 = 49 ⇒ a = 7.\n• Tính diện tích: S = ½·8·5·sin60° = 20·(√3/2) = 10√3."
+            },
+            {
+                id: "toan-bai-1-2",
+                subject: "Toán 10",
+                category: "Đại số",
+                chapter: "Chương I: Mệnh đề và Tập hợp",
+                lessonNumber: "Bài 1 & Bài 2",
+                title: "Mệnh đề toán học & Các phép toán trên tập hợp",
+                keywords: "menh de phu dinh keo theo tuong duong tap hop giao hop hieu phan bu bieu do venn",
+                summary: "Xác định tính đúng sai của mệnh đề, mệnh đề chứa biến và thực hiện phép giao, hợp, hiệu giữa hai tập hợp.",
+                svgCaption: "Biểu đồ Venn minh họa phép Giao (A ∩ B) và phép Hợp (A ∪ B)",
+                svg: `<svg viewBox="0 0 320 180" class="w-full h-44">
+                        <rect x="20" y="15" width="280" height="150" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+                        <circle cx="130" cy="92" r="52" fill="#3b82f6" fill-opacity="0.25" stroke="#2563eb" stroke-width="2"/>
+                        <circle cx="190" cy="92" r="52" fill="#60a5fa" fill-opacity="0.25" stroke="#1d4ed8" stroke-width="2"/>
+                        <text x="95" y="96" font-size="14" font-weight="bold" fill="#1e3a8a">A</text>
+                        <text x="218" y="96" font-size="14" font-weight="bold" fill="#1e3a8a">B</text>
+                        <text x="144" y="96" font-size="12" font-weight="bold" fill="#0f172a">A ∩ B</text>
+                        <text x="32" y="36" font-size="11" font-weight="bold" fill="#64748b">Tập vũ trụ E</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Kí hiệu lượng từ & Phủ định",
+                        code: "Phủ định của (∀x ∈ X, P(x))  là  (∃x ∈ X, P̄(x))\nPhủ định của (∃x ∈ X, P(x))  là  (∀x ∈ X, P̄(x))",
+                        note: "∀: với mọi; ∃: tồn tại ít nhất một."
+                    },
+                    {
+                        name: "2. Các phép toán tập hợp",
+                        code: "• Giao:  A ∩ B = {x | x ∈ A và x ∈ B}\n• Hợp:   A ∪ B = {x | x ∈ A hoặc x ∈ B}\n• Hiệu:  A \\ B = {x | x ∈ A và x ∉ B}\n• Phần bù (B ⊂ A):  C_A(B) = A \\ B",
+                        note: "Sử dụng trục số để tìm giao/hợp của các khoảng, đoạn trên tập số thực ℝ."
+                    }
+                ],
+                example: "Cho A = (-2; 5] và B = [1; 7).\n• A ∩ B = [1; 5]\n• A ∪ B = (-2; 7)\n• A \\ B = (-2; 1)"
+            },
+            {
+                id: "toan-bai-3-4",
+                subject: "Toán 10",
+                category: "Đại số",
+                chapter: "Chương II: Bất phương trình bậc nhất hai ẩn",
+                lessonNumber: "Bài 3 & Bài 4",
+                title: "Bất phương trình & Hệ bất phương trình bậc nhất hai ẩn",
+                keywords: "bat phuong trinh bac nhat hai an mien nghiem duong thang bo bai toan toi uu",
+                summary: "Biểu diễn hình học tập nghiệm của bất phương trình ax + by ≤ c trên mặt phẳng tọa độ Oxy và tìm giá trị lớn nhất/nhỏ nhất.",
+                svgCaption: "Miền nghiệm của bất phương trình bậc nhất hai ẩn trên mặt phẳng Oxy",
+                svg: `<svg viewBox="0 0 320 180" class="w-full h-44">
+                        <polygon points="60,145 60,45 180,45 230,105 140,145" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="40" y1="145" x2="290" y2="145" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="60" y1="165" x2="60" y2="20" stroke="#475569" stroke-width="1.5"/>
+                        <text x="282" y="138" font-size="12" font-weight="bold" fill="#0f172a">x</text>
+                        <text x="68" y="28" font-size="12" font-weight="bold" fill="#0f172a">y</text>
+                        <text x="45" y="158" font-size="12" font-weight="bold" fill="#0f172a">O</text>
+                        <text x="105" y="100" font-size="12" font-weight="bold" fill="#1d4ed8">Miền nghiệm</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Quy tắc xác định miền nghiệm ax + by < c",
+                        code: "Bước 1: Vẽ đường thẳng d: ax + by = c\nBước 2: Lấy điểm M₀(x₀; y₀) ∉ d (thường chọn O(0;0))\nBước 3: Nếu ax₀ + by₀ < c đúng ⇒ miền nghiệm chứa M₀",
+                        note: "Dấu < hoặc > dùng nét đứt; dấu ≤ hoặc ≥ dùng nét liền."
+                    },
+                    {
+                        name: "2. Tìm cực trị biểu thức F(x; y) = Ax + By",
+                        code: "F(x; y) đạt GTLN hoặc GTNN tại một trong các ĐỈNH của đa giác miền nghiệm.",
+                        note: "Tính tọa độ tất cả các đỉnh rồi thay vào F(x; y) để so sánh."
+                    }
+                ],
+                example: "Xét x + 2y ≤ 4. Thay O(0; 0) vào thấy 0 + 2(0) = 0 ≤ 4 (đúng). Vậy miền nghiệm là nửa mặt phẳng bờ d: x + 2y = 4 có chứa gốc tọa độ O (kể cả bờ d)."
+            },
+            {
+                id: "toan-bai-15-16",
+                subject: "Toán 10",
+                category: "Đại số",
+                chapter: "Chương VI: Hàm số, Đồ thị và Ứng dụng",
+                lessonNumber: "Bài 15 & Bài 16",
+                title: "Hàm số bậc hai (Parabol) & Dấu của tam thức bậc hai",
+                keywords: "ham so bac hai parabol dinh truc doi xung tam thuc bac hai delta xet dau bat phuong trinh",
+                summary: "Khảo sát sự biến thiên, vẽ đồ thị Parabol y = ax² + bx + c và quy tắc xét dấu tam thức bậc hai.",
+                svgCaption: "Đồ thị hàm số bậc hai y = ax² + bx + c (trường hợp a > 0)",
+                svg: `<svg viewBox="0 0 320 190" class="w-full h-44">
+                        <line x1="40" y1="135" x2="280" y2="135" stroke="#64748b" stroke-width="1.5"/>
+                        <line x1="110" y1="175" x2="110" y2="15" stroke="#64748b" stroke-width="1.5"/>
+                        <line x1="180" y1="170" x2="180" y2="20" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="4 4"/>
+                        <path d="M 115 25 Q 180 285 245 25" fill="none" stroke="#2563eb" stroke-width="3"/>
+                        <circle cx="180" cy="155" r="4" fill="#1d4ed8"/>
+                        <text x="165" y="172" font-size="11" font-weight="bold" fill="#1d4ed8">I(-b/2a; -Δ/4a)</text>
+                        <text x="186" y="32" font-size="11" fill="#2563eb">Trục đối xứng</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Tọa độ đỉnh & Trục đối xứng Parabol y = ax² + bx + c (a ≠ 0)",
+                        code: "• Tọa độ đỉnh:  I( -b / (2a) ; -Δ / (4a) )\n• Trục đối xứng:  x = -b / (2a)\n• a > 0: bề lõm hướng lên | a < 0: bề lõm hướng xuống",
+                        note: "Với Δ = b² - 4ac."
+                    },
+                    {
+                        name: "2. Định lí về dấu tam thức bậc hai f(x) = ax² + bx + c",
+                        code: "• Δ < 0: f(x) luôn CÙNG DẤU với a với mọi x ∈ ℝ\n• Δ = 0: f(x) cùng dấu với a với mọi x ≠ -b/(2a)\n• Δ > 0: \"Trong trái - Ngoài cùng\" (trong khoảng 2 nghiệm trái dấu a)",
+                        note: "Là công cụ cốt lõi để giải bất phương trình bậc hai."
+                    }
+                ],
+                example: "Cho y = x² - 4x + 3. Đỉnh I(2; -1), trục đối xứng x = 2. Vì a = 1 > 0 nên hàm số nghịch biến trên (-∞; 2) và đồng biến trên (2; +∞)."
+            },
+            {
+                id: "toan-vecto",
+                subject: "Toán 10",
+                category: "Hình học & Vectơ",
+                chapter: "Chương IV: Vectơ",
+                lessonNumber: "Bài 7 – Bài 11",
+                title: "Các phép toán Vectơ & Tích vô hướng của hai vectơ",
+                keywords: "vecto quy tac ba diem hinh binh hanh trung diem trong tam tich vo huong toa do vecto",
+                summary: "Tổng hợp các quy tắc cộng, trừ, nhân vectơ với một số, tọa độ vectơ và công thức tính tích vô hướng.",
+                svgCaption: "Quy tắc hình bình hành và quy tắc ba điểm trong phép cộng vectơ",
+                svg: `<svg viewBox="0 0 320 180" class="w-full h-44">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563eb"/>
+                            </marker>
+                            <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#1d4ed8"/>
+                            </marker>
+                        </defs>
+                        <line x1="60" y1="130" x2="200" y2="130" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+                        <line x1="60" y1="130" x2="110" y2="50" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow)"/>
+                        <line x1="110" y1="50" x2="250" y2="50" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="4 4"/>
+                        <line x1="200" y1="130" x2="250" y2="50" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="4 4"/>
+                        <line x1="60" y1="130" x2="248" y2="52" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#arrowRed)"/>
+                        <text x="45" y="142" font-size="13" font-weight="bold" fill="#0f172a">A</text>
+                        <text x="205" y="142" font-size="13" font-weight="bold" fill="#0f172a">B</text>
+                        <text x="255" y="50" font-size="13" font-weight="bold" fill="#0f172a">C</text>
+                        <text x="95" y="45" font-size="13" font-weight="bold" fill="#0f172a">D</text>
+                        <text x="145" y="82" font-size="12" font-weight="bold" fill="#1d4ed8" transform="rotate(-28 145 82)">AB + AD = AC</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Quy tắc ba điểm, Hình bình hành, Trung điểm & Trọng tâm",
+                        code: "• Ba điểm: AB⃗ + BC⃗ = AC⃗   |   Hiệu: OB⃗ - OA⃗ = AB⃗\n• Hình bình hành ABCD:  AB⃗ + AD⃗ = AC⃗\n• I là trung điểm AB ⇔ IA⃗ + IB⃗ = 0⃗ ⇔ MA⃗ + MB⃗ = 2MI⃗\n• G là trọng tâm ΔABC ⇔ GA⃗ + GB⃗ + GC⃗ = 0⃗",
+                        note: "Công thức nền tảng để chứng minh đẳng thức vectơ."
+                    },
+                    {
+                        name: "2. Tích vô hướng & Biểu thức tọa độ",
+                        code: "• a⃗ · b⃗ = |a⃗| · |b⃗| · cos(a⃗, b⃗)\n• Với a⃗ = (x₁; y₁), b⃗ = (x₂; y₂):\n  a⃗ · b⃗ = x₁x₂ + y₁y₂\n  |a⃗| = √(x₁² + y₁²)\n  a⃗ ⊥ b⃗ ⇔ x₁x₂ + y₁y₂ = 0",
+                        note: "Dùng điều kiện tích vô hướng bằng 0 để chứng minh vuông góc."
+                    }
+                ],
+                example: "Cho a⃗ = (2; -3) và b⃗ = (6; 4). Ta có a⃗ · b⃗ = 2·6 + (-3)·4 = 12 - 12 = 0 ⇒ Hai vectơ a⃗ và b⃗ vuông góc với nhau."
+            },
+            {
+                id: "toan-to-hop-xac-suat",
+                subject: "Toán 10",
+                category: "Thống kê - Xác suất",
+                chapter: "Chương VIII & IX: Đại số tổ hợp & Xác suất",
+                lessonNumber: "Bài 23 – Bài 27",
+                title: "Hoán vị, Chỉnh hợp, Tổ hợp & Công thức tính Xác suất",
+                keywords: "hoan vi chinh hop to hop giai thua nhi thuc newton xac suat bien co khong gian mau",
+                summary: "Phân biệt cách chọn có thứ tự (Chỉnh hợp), không thứ tự (Tổ hợp) và tính xác suất cổ điển của biến cố.",
+                svgCaption: "Phân biệt nhanh Hoán vị (Pₙ), Chỉnh hợp (Aₙᵏ) và Tổ hợp (Cₙᵏ)",
+                svg: `<svg viewBox="0 0 320 175" class="w-full h-44">
+                        <rect x="15" y="20" width="90" height="135" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="60" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Hoán vị Pₙ</text>
+                        <text x="60" y="75" text-anchor="middle" font-size="11" fill="#334155">Lấy hết n</text>
+                        <text x="60" y="92" text-anchor="middle" font-size="11" fill="#334155">Có thứ tự</text>
+                        <text x="60" y="130" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">n!</text>
+
+                        <rect x="115" y="20" width="90" height="135" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="160" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Chỉnh hợp Aₙᵏ</text>
+                        <text x="160" y="75" text-anchor="middle" font-size="11" fill="#334155">Lấy k từ n</text>
+                        <text x="160" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Có thứ tự</text>
+                        <text x="160" y="130" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">n! / (n-k)!</text>
+
+                        <rect x="215" y="20" width="90" height="135" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+                        <text x="260" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Tổ hợp Cₙᵏ</text>
+                        <text x="260" y="75" text-anchor="middle" font-size="11" fill="#334155">Lấy k từ n</text>
+                        <text x="260" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Không thứ tự</text>
+                        <text x="260" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">n! / [k!(n-k)!]</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Công thức Hoán vị - Chỉnh hợp - Tổ hợp",
+                        code: "• Hoán vị:   Pₙ = n! = 1·2·3...n   (Quy ước 0! = 1)\n• Chỉnh hợp: Aₙᵏ = n! / (n - k)!   (1 ≤ k ≤ n)\n• Tổ hợp:    Cₙᵏ = n! / [k!·(n - k)!]   (0 ≤ k ≤ n)",
+                        note: "Mẹo: Xếp hàng/lập số có phân biệt vị trí dùng Aₙᵏ; chọn nhóm/lấy ngẫu nhiên cùng lúc dùng Cₙᵏ."
+                    },
+                    {
+                        name: "2. Xác suất cổ điển & Biến cố đối",
+                        code: "• Xác suất biến cố A:  P(A) = n(A) / n(Ω)\n• Biến cố đối Ā:       P(Ā) = 1 - P(A)",
+                        note: "0 ≤ P(A) ≤ 1. Với n(Ω) là số phần tử của không gian mẫu."
+                    }
+                ],
+                example: "Một tổ có 10 học sinh. Chọn ngẫu nhiên 3 bạn đi trực nhật (không phân biệt chức vụ) có C₁₀³ = 120 cách. Chọn 3 bạn làm lớp trưởng, lớp phó, bí thư (có phân biệt vị trí) có A₁₀³ = 720 cách."
+            },
+            {
+                id: "tin-he-nhi-phan",
+                subject: "Tin học 10",
+                category: "Thông tin & Dữ liệu",
+                chapter: "Chủ đề 1: Máy tính và xã hội tri thức",
+                lessonNumber: "Bài 1 & Bài 3",
+                title: "Hệ nhị phân, Đơn vị đo dữ liệu & Mã hóa thông tin",
+                keywords: "he nhi phan thap phan bit byte kb mb gb tb ma hoa du lieu chuyen doi co so",
+                summary: "Cách biểu diễn số nguyên trong hệ nhị phân (0 và 1), chuyển đổi qua lại giữa hệ 10 và hệ 2, cùng các đơn vị đo dung lượng.",
+                svgCaption: "Quy tắc đổi số thập phân sang nhị phân bằng phép chia liên tiếp cho 2",
+                svg: `<svg viewBox="0 0 320 175" class="w-full h-44">
+                        <rect x="20" y="20" width="280" height="135" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+                        <text x="160" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Ví dụ: Đổi số 13₁₀ sang hệ nhị phân</text>
+                        <text x="160" y="72" text-anchor="middle" font-family="monospace" font-size="12" fill="#0f172a">13 : 2 = 6  dư  1  (bit thấp nhất)</text>
+                        <text x="160" y="92" text-anchor="middle" font-family="monospace" font-size="12" fill="#0f172a"> 6 : 2 = 3  dư  0</text>
+                        <text x="160" y="112" text-anchor="middle" font-family="monospace" font-size="12" fill="#0f172a"> 3 : 2 = 1  dư  1</text>
+                        <text x="160" y="132" text-anchor="middle" font-family="monospace" font-size="12" fill="#0f172a"> 1 : 2 = 0  dư  1  (bit cao nhất)</text>
+                        <text x="160" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">Đọc ngược từ dưới lên ⇒ 13₁₀ = 1101₂</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Đổi từ hệ nhị phân (cơ số 2) sang thập phân (cơ số 10)",
+                        code: "(dₙ dₙ₋₁ ... d₁ d₀)₂ = dₙ·2ⁿ + dₙ₋₁·2ⁿ⁻¹ + ... + d₁·2¹ + d₀·2⁰",
+                        note: "Ví dụ: 1011₂ = 1·2³ + 0·2² + 1·2¹ + 1·2⁰ = 8 + 0 + 2 + 1 = 11₁₀."
+                    },
+                    {
+                        name: "2. Bảng đơn vị đo lượng dữ liệu",
+                        code: "1 Byte (B) = 8 bit\n1 KB = 1024 B   |   1 MB = 1024 KB\n1 GB = 1024 MB  |   1 TB = 1024 GB",
+                        note: "Bit là đơn vị nhỏ nhất dùng để đo lượng thông tin (nhận giá trị 0 hoặc 1)."
+                    }
+                ],
+                example: "Một bức ảnh có dung lượng 2 MB tương đương với:\n2 × 1024 = 2048 KB = 2.097.152 Byte."
+            },
+            {
+                id: "tin-mang-internet",
+                subject: "Tin học 10",
+                category: "Mạng & Internet",
+                chapter: "Chủ đề 2: Mạng máy tính và Internet",
+                lessonNumber: "Bài 8 & Bài 9",
+                title: "Mạng LAN, Internet, Địa chỉ IP & Điện toán đám mây",
+                keywords: "mang lan wan internet dia chi ip ten mien dns dien toan dam may cloud bao mat",
+                summary: "Phân biệt mạng cục bộ LAN và mạng diện rộng Internet, cơ chế định danh thiết bị bằng địa chỉ IP và dịch vụ đám mây.",
+                svgCaption: "Mô hình kết nối mạng cục bộ LAN ra mạng toàn cầu Internet qua Router",
+                svg: `<svg viewBox="0 0 320 175" class="w-full h-44">
+                        <rect x="20" y="35" width="115" height="105" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3"/>
+                        <text x="77" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">Mạng LAN</text>
+                        <rect x="35" y="68" width="35" height="24" rx="4" fill="#2563eb"/>
+                        <text x="52" y="84" text-anchor="middle" font-size="9" fill="white">PC 1</text>
+                        <rect x="85" y="68" width="35" height="24" rx="4" fill="#2563eb"/>
+                        <text x="102" y="84" text-anchor="middle" font-size="9" fill="white">PC 2</text>
+                        <rect x="55" y="105" width="45" height="22" rx="4" fill="#1e40af"/>
+                        <text x="77" y="119" text-anchor="middle" font-size="9" fill="white">Switch</text>
+
+                        <line x1="135" y1="88" x2="175" y2="88" stroke="#2563eb" stroke-width="2"/>
+                        <rect x="175" y="72" width="46" height="32" rx="6" fill="#1d4ed8"/>
+                        <text x="198" y="92" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Router</text>
+
+                        <line x1="221" y1="88" x2="245" y2="88" stroke="#2563eb" stroke-width="2"/>
+                        <ellipse cx="275" cy="88" rx="35" ry="26" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                        <text x="275" y="92" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">Internet</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. So sánh mạng LAN và Internet",
+                        code: "• LAN (Local Area Network): Phạm vi hẹp (phòng máy, trường học), tốc độ cao, thuộc quyền sở hữu của một tổ chức.\n• Internet: Quy mô toàn cầu, kết nối hàng tỉ thiết bị, không thuộc sở hữu của riêng ai.",
+                        note: "Thiết bị Switch kết nối trong LAN; Router (bộ định tuyến) kết nối LAN với Internet."
+                    },
+                    {
+                        name: "2. Địa chỉ IP & Hệ thống tên miền (DNS)",
+                        code: "• IPv4: Gồm 4 số nguyên (0–255) cách nhau bởi dấu chấm.\n  Ví dụ: 192.168.1.1\n• DNS: Dịch tên miền dễ nhớ (vd: google.com) sang địa chỉ IP.",
+                        note: "Điện toán đám mây (Cloud): Google Drive, OneDrive, iCloud cho phép lưu trữ và xử lý trực tuyến."
+                    }
+                ],
+                example: "Khi truy cập trang web qua GitHub Pages (ví dụ: user.github.io), hệ thống DNS sẽ phân giải tên miền đó thành địa chỉ IP máy chủ của GitHub để tải file index.html về máy bạn."
+            },
+            {
+                id: "tin-python-bien-nhap-xuat",
+                subject: "Tin học 10",
+                category: "Lập trình Python cơ bản",
+                chapter: "Chủ đề 5: Giải quyết vấn đề với sự trợ giúp của máy tính",
+                lessonNumber: "Bài 16 – Bài 19",
+                title: "Biến, Kiểu dữ liệu & Lệnh vào/ra chuẩn trong Python",
+                keywords: "python bien kieu du lieu int float str bool input print phep toan chia lay du",
+                summary: "Quy tắc đặt tên biến, các kiểu dữ liệu cơ bản và cách nhập dữ liệu từ bàn phím, xuất kết quả ra màn hình trong Python.",
+                svgCaption: "Luồng xử lý dữ liệu cơ bản Input → Process → Output trong Python",
+                svg: `<svg viewBox="0 0 320 150" class="w-full h-36">
+                        <rect x="15" y="48" width="82" height="54" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                        <text x="56" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">INPUT</text>
+                        <text x="56" y="88" text-anchor="middle" font-family="monospace" font-size="10" fill="#2563eb">input()</text>
+
+                        <line x1="97" y1="75" x2="118" y2="75" stroke="#2563eb" stroke-width="2"/>
+                        <rect x="118" y="48" width="84" height="54" rx="8" fill="#2563eb"/>
+                        <text x="160" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="white">XỬ LÝ</text>
+                        <text x="160" y="88" text-anchor="middle" font-family="monospace" font-size="10" fill="#dbeafe">Biến & Toán tử</text>
+
+                        <line x1="202" y1="75" x2="223" y2="75" stroke="#2563eb" stroke-width="2"/>
+                        <rect x="223" y="48" width="82" height="54" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                        <text x="264" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">OUTPUT</text>
+                        <text x="264" y="88" text-anchor="middle" font-family="monospace" font-size="10" fill="#2563eb">print()</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Các kiểu dữ liệu & Lệnh nhập/xuất",
+                        code: "• int (số nguyên), float (số thực), str (xâu kí tự), bool (True/False)\n• Nhập số nguyên:  n = int(input(\"Nhập n: \"))\n• Nhập số thực:    x = float(input(\"Nhập x: \"))\n• Xuất kết quả:    print(\"Kết quả =\", x)",
+                        note: "Hàm input() luôn trả về kiểu xâu (str), cần ép kiểu int() hoặc float() trước khi tính toán."
+                    },
+                    {
+                        name: "2. Các phép toán số học đặc biệt trong Python",
+                        code: "• Chia lấy phần nguyên:  17 // 5  ⇒  3\n• Chia lấy phần dư:      17 % 5   ⇒  2\n• Lũy thừa:              2 ** 4   ⇒  16",
+                        note: "Phép chia thường (/) luôn trả về số thực (ví dụ: 10 / 2 = 5.0)."
+                    }
+                ],
+                example: "a = int(input('Nhập cạnh a: '))\nb = int(input('Nhập cạnh b: '))\nprint('Chu vi hình chữ nhật:', (a + b) * 2)"
+            },
+            {
+                id: "tin-python-re-nhanh",
+                subject: "Tin học 10",
+                category: "Lập trình Python cơ bản",
+                chapter: "Chủ đề 5: Giải quyết vấn đề với sự trợ giúp của máy tính",
+                lessonNumber: "Bài 20",
+                title: "Câu lệnh rẽ nhánh if – elif – else trong Python",
+                keywords: "python cau lenh re nhanh if else elif dieu kien so sanh and or not thut le",
+                summary: "Sử dụng cấu trúc rẽ nhánh để chương trình kiểm tra điều kiện và chọn hướng thực hiện phù hợp.",
+                svgCaption: "Sơ đồ khối cấu trúc rẽ nhánh dạng đủ (if - else)",
+                svg: `<svg viewBox="0 0 320 185" class="w-full h-44">
+                        <polygon points="160,15 225,52 160,89 95,52" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                        <text x="160" y="56" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e3a8a">Điều kiện?</text>
+                        
+                        <line x1="95" y1="52" x2="65" y2="52" stroke="#2563eb" stroke-width="1.8"/>
+                        <line x1="65" y1="52" x2="65" y2="105" stroke="#2563eb" stroke-width="1.8"/>
+                        <text x="72" y="45" font-size="10" font-weight="bold" fill="#16a34a">Đúng</text>
+                        <rect x="20" y="105" width="90" height="36" rx="6" fill="#2563eb"/>
+                        <text x="65" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Khối lệnh 1</text>
+
+                        <line x1="225" y1="52" x2="255" y2="52" stroke="#2563eb" stroke-width="1.8"/>
+                        <line x1="255" y1="52" x2="255" y2="105" stroke="#2563eb" stroke-width="1.8"/>
+                        <text x="230" y="45" font-size="10" font-weight="bold" fill="#dc2626">Sai</text>
+                        <rect x="210" y="105" width="90" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+                        <text x="255" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">Khối lệnh 2</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Cú pháp câu lệnh if – elif – else",
+                        code: "if <điều_kiện_1>:\n    <khối_lệnh_1>\nelif <điều_kiện_2>:\n    <khối_lệnh_2>\nelse:\n    <khối_lệnh_3>",
+                        note: "Bắt buộc có dấu hai chấm (:) cuối dòng điều kiện và thụt lề (4 dấu cách) cho khối lệnh bên trong."
+                    },
+                    {
+                        name: "2. Toán tử so sánh & Logic",
+                        code: "• So sánh bằng: ==   |   Khác nhau: !=   |   Lớn/nhỏ hơn: >=, <=\n• Kết hợp điều kiện:  and (và),  or (hoặc),  not (phủ định)",
+                        note: "Lưu ý: '=' là phép gán, '==' mới là phép so sánh bằng."
+                    }
+                ],
+                example: "n = int(input('Nhập số nguyên n: '))\nif n % 2 == 0:\n    print(n, 'là số chẵn')\nelse:\n    print(n, 'là số lẻ')"
+            },
+            {
+                id: "tin-python-vong-lap",
+                subject: "Tin học 10",
+                category: "Lập trình Python cơ bản",
+                chapter: "Chủ đề 5: Giải quyết vấn đề với sự trợ giúp của máy tính",
+                lessonNumber: "Bài 21 & Bài 22",
+                title: "Vòng lặp for (với range) và vòng lặp while trong Python",
+                keywords: "python vong lap for while range lap voi so lan biet truoc chua biet truoc break",
+                summary: "Lặp lại một khối lệnh nhiều lần với số lần biết trước (for) hoặc lặp theo điều kiện (while).",
+                svgCaption: "Cơ chế hoạt động của hàm range(start, stop, step) trong vòng lặp for",
+                svg: `<svg viewBox="0 0 320 155" class="w-full h-36">
+                        <rect x="20" y="25" width="280" height="105" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+                        <text x="160" y="50" text-anchor="middle" font-family="monospace" font-size="13" font-weight="bold" fill="#1d4ed8">range(1, 6, 1)</text>
+                        <g transform="translate(42, 68)">
+                            <rect x="0" y="0" width="38" height="34" rx="6" fill="#2563eb"/><text x="19" y="22" text-anchor="middle" fill="white" font-weight="bold">1</text>
+                            <rect x="48" y="0" width="38" height="34" rx="6" fill="#2563eb"/><text x="67" y="22" text-anchor="middle" fill="white" font-weight="bold">2</text>
+                            <rect x="96" y="0" width="38" height="34" rx="6" fill="#2563eb"/><text x="115" y="22" text-anchor="middle" fill="white" font-weight="bold">3</text>
+                            <rect x="144" y="0" width="38" height="34" rx="6" fill="#2563eb"/><text x="163" y="22" text-anchor="middle" fill="white" font-weight="bold">4</text>
+                            <rect x="192" y="0" width="38" height="34" rx="6" fill="#2563eb"/><text x="211" y="22" text-anchor="middle" fill="white" font-weight="bold">5</text>
+                        </g>
+                        <text x="160" y="120" text-anchor="middle" font-size="11" fill="#475569">Chạy từ 1 đến trước 6 (dừng ở 5)</text>
+                      </svg>`,
+                formulas: [
+                    {
+                        name: "1. Vòng lặp for (Lặp với số lần biết trước)",
+                        code: "for i in range(start, stop, step):\n    <khối_lệnh_lặp>\n\n• range(n)       ⇒ 0, 1, 2, ..., n-1\n• range(a, b)    ⇒ a, a+1, ..., b-1",
+                        note: "Giá trị dừng (stop) KHÔNG bao gồm trong dãy số được tạo ra."
+                    },
+                    {
+                        name: "2. Vòng lặp while (Lặp theo điều kiện)",
+                        code: "while <điều_kiện_lặp>:\n    <khối_lệnh_lặp>",
+                        note: "Cần cập nhật biến điều kiện bên trong thân vòng lặp để tránh lặp vô hạn."
+                    }
+                ],
+                example: "# Tính tổng S = 1 + 2 + ... + 10\nS = 0\nfor i in range(1, 11):\n    S = S + i\nprint('Tổng S =', S)  # Kết quả: 55"
+            }
+        ];
+
+        // 2. DANH SÁCH BỘ LỌC CHUYÊN ĐỀ
+        const categories = [
+            "Tất cả",
+            "Toán 10",
+            "Tin học 10",
+            "Đại số",
+            "Hình học & Vectơ",
+            "Thống kê - Xác suất",
+            "Lập trình Python cơ bản"
+        ];
+
+        // 3. TRẠNG THÁI ỨNG DỤNG
+        let currentCategory = "Tất cả";
+        let currentSearch = "";
+        let savedIds = JSON.parse(localStorage.getItem("toanTin10_notebook")) || [];
+
+        // 4. HÀM CHUẨN HÓA CHUỖI TIẾNG VIỆT (BỎ DẤU ĐỂ TÌM KIẾM THÔNG MINH)
+        function removeVietnameseTones(str) {
+            return str
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d")
+                .replace(/Đ/g, "D")
+                .toLowerCase()
+                .trim();
+        }
+
+        // 5. RENDER CÁC NÚT BỘ LỌC
+        function renderFilters() {
+            const container = document.getElementById("filterContainer");
+            container.innerHTML = categories.map(cat => {
+                const isActive = currentCategory === cat;
+                const activeClasses = isActive
+                    ? "bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-600/20"
+                    : "bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600";
+                return `
+                    <button 
+                        onclick="selectCategory('${cat}')"
+                        class="px-4 py-2 rounded-xl border text-sm font-semibold whitespace-nowrap transition-all ${activeClasses}">
+                        ${cat}
+                    </button>
+                `;
+            }).join("");
+        }
+
+        function selectCategory(cat) {
+            currentCategory = cat;
+            renderFilters();
+            renderCards();
+        }
+
+        // 6. XỬ LÝ TÌM KIẾM
+        function handleSearch() {
+            const input = document.getElementById("searchInput");
+            const clearBtn = document.getElementById("clearSearchBtn");
+            currentSearch = input.value;
+            
+            if (currentSearch.length > 0) {
+                clearBtn.classList.remove("hidden");
+            } else {
+                clearBtn.classList.add("hidden");
+            }
+            renderCards();
+        }
+
+        function quickSearch(keyword) {
+            const input = document.getElementById("searchInput");
+            input.value = keyword;
+            currentCategory = "Tất cả";
+            renderFilters();
+            handleSearch();
+            input.focus();
+        }
+
+        function clearSearch() {
+            const input = document.getElementById("searchInput");
+            input.value = "";
+            handleSearch();
+            input.focus();
+        }
+
+        function resetFilters() {
+            currentCategory = "Tất cả";
+            clearSearch();
+            renderFilters();
+            renderCards();
+        }
+
+        // 7. RENDER DANH SÁCH THẺ KIẾN THỨC
+        function renderCards() {
+            const grid = document.getElementById("cardsGrid");
+            const emptyState = document.getElementById("emptyState");
+            const resultCount = document.getElementById("resultCount");
+
+            const normalizedQuery = removeVietnameseTones(currentSearch);
+
+            const filtered = lessonsData.filter(item => {
+                // Lọc theo danh mục
+                const matchCat = 
+                    currentCategory === "Tất cả" ||
+                    item.subject === currentCategory ||
+                    item.category === currentCategory;
+
+                if (!matchCat) return false;
+
+                // Lọc theo từ khóa tìm kiếm (hỗ trợ cả có dấu và không dấu)
+                if (!normalizedQuery) return true;
+
+                const searchableText = removeVietnameseTones(
+                    `${item.subject} ${item.category} ${item.chapter} ${item.lessonNumber} ${item.title} ${item.keywords} ${item.summary} ${item.formulas.map(f => f.name + " " + f.code).join(" ")}`
+                );
+
+                return searchableText.includes(normalizedQuery);
+            });
+
+            resultCount.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = "";
+                emptyState.classList.remove("hidden");
+                return;
+            }
+
+            emptyState.classList.add("hidden");
+
+            grid.innerHTML = filtered.map(item => {
+                const isSaved = savedIds.includes(item.id);
+                const subjectBadgeColor = item.subject === "Toán 10" 
+                    ? "bg-blue-50 text-blue-700 border-blue-200" 
+                    : "bg-sky-50 text-sky-700 border-sky-200";
+                
+                // Lấy công thức đầu tiên để hiển thị đóng khung ngay trên thẻ
+                const primaryFormula = item.formulas[0];
+
+                return `
+                    <article class="bg-white rounded-2xl border border-slate-200 hover:border-blue-400 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group">
+                        <div>
+                            <!-- Top Meta -->
+                            <div class="p-5 pb-3">
+                                <div class="flex items-center justify-between gap-2 mb-2.5">
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold border ${subjectBadgeColor}">
+                                        ${item.subject} • ${item.lessonNumber}
+                                    </span>
+                                    <span class="text-xs font-medium text-slate-500 truncate max-w-[150px]" title="${item.category}">
+                                        ${item.category}
+                                    </span>
+                                </div>
+
+                                <p class="text-xs font-medium text-slate-400 mb-1">${item.chapter}</p>
+                                <h3 onclick="openDetailModal('${item.id}')" class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors cursor-pointer line-clamp-2">
+                                    ${item.title}
+                                </h3>
+                            </div>
+
+                            <!-- Hình vẽ minh họa SVG -->
+                            <div onclick="openDetailModal('${item.id}')" class="mx-5 bg-slate-50/80 border border-slate-100 rounded-xl p-2 flex items-center justify-center cursor-pointer overflow-hidden">
+                                ${item.svg}
+                            </div>
+
+                            <!-- Khung công thức nổi bật -->
+                            <div class="p-5 pt-4">
+                                <div class="formula-box rounded-xl p-3.5 border border-blue-100">
+                                    <div class="flex items-center justify-between gap-2 mb-1.5">
+                                        <span class="text-xs font-bold text-blue-800">${primaryFormula.name}</span>
+                                        <button 
+                                            onclick="copyFormula(\`${primaryFormula.code.replace(/`/g, "\\`")}\`)" 
+                                            class="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-white px-2 py-0.5 rounded-md border border-blue-200 shadow-2xs transition-colors shrink-0"
+                                            title="Sao chép công thức">
+                                            Chép
+                                        </button>
+                                    </div>
+                                    <pre class="font-mono text-xs sm:text-[13px] text-slate-800 whitespace-pre-wrap leading-relaxed overflow-x-auto">${primaryFormula.code}</pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thanh nút hành động cuối thẻ -->
+                        <div class="px-5 py-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <button 
+                                onclick="openDetailModal('${item.id}')" 
+                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-3 rounded-xl text-xs sm:text-sm transition-colors text-center">
+                                Xem đầy đủ (${item.formulas.length} mục)
+                            </button>
+                            <button 
+                                onclick="toggleSaveItem('${item.id}')" 
+                                class="p-2 rounded-xl border transition-colors ${isSaved ? 'bg-blue-50 border-blue-300 text-blue-600' : 'bg-white border-slate-200 text-slate-500 hover:text-blue-600 hover:border-blue-300'}"
+                                title="${isSaved ? 'Đã lưu trong sổ tay' : 'Lưu vào sổ tay ôn tập'}">
+                                <svg class="w-5 h-5" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        // 8. MODAL XEM CHI TIẾT BÀI HỌC
+        function openDetailModal(id) {
+            const item = lessonsData.find(x => x.id === id);
+            if (!item) return;
+
+            document.getElementById("modalSubject").textContent = item.subject;
+            document.getElementById("modalChapter").textContent = item.chapter;
+            document.getElementById("modalLessonBadge").textContent = `${item.lessonNumber} • ${item.category}`;
+            document.getElementById("modalTitle").textContent = item.title;
+            document.getElementById("modalSummary").textContent = item.summary;
+            document.getElementById("modalSvgContainer").innerHTML = item.svg;
+            document.getElementById("modalSvgCaption").textContent = item.svgCaption;
+            document.getElementById("modalExample").textContent = item.example;
+
+            const formulasContainer = document.getElementById("modalFormulasList");
+            formulasContainer.innerHTML = item.formulas.map(f => `
+                <div class="formula-box rounded-xl p-4 border border-blue-200">
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <span class="text-sm font-bold text-blue-900">${f.name}</span>
+                        <button 
+                            onclick="copyFormula(\`${f.code.replace(/`/g, "\\`")}\`)" 
+                            class="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 hover:bg-blue-600 hover:text-white bg-white px-2.5 py-1 rounded-lg border border-blue-200 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                            Sao chép
+                        </button>
+                    </div>
+                    <pre class="font-mono text-xs sm:text-sm text-slate-900 bg-white/80 p-3 rounded-lg border border-blue-100 whitespace-pre-wrap leading-relaxed overflow-x-auto">${f.code}</pre>
+                    <p class="text-xs text-slate-600 mt-2"><strong>Ghi chú:</strong> ${f.note}</p>
+                </div>
+            `).join("");
+
+            updateModalSaveButton(id);
+            document.getElementById("detailModal").classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
+        }
+
+        function updateModalSaveButton(id) {
+            const btn = document.getElementById("modalSaveBtn");
+            const isSaved = savedIds.includes(id);
+            btn.onclick = () => {
+                toggleSaveItem(id);
+                updateModalSaveButton(id);
+            };
+            btn.innerHTML = isSaved
+                ? `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg><span>Đã lưu vào sổ tay</span>`
+                : `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg><span>+ Lưu vào sổ tay ôn tập</span>`;
+        }
+
+        function closeDetailModal() {
+            document.getElementById("detailModal").classList.add("hidden");
+            document.body.classList.remove("overflow-hidden");
+        }
+
+        // 9. QUẢN LÝ SỔ TAY ÔN TẬP (LOCALSTORAGE)
+        function toggleSaveItem(id) {
+            const index = savedIds.indexOf(id);
+            if (index === -1) {
+                savedIds.push(id);
+                showToast("Đã thêm bài học vào Sổ tay ôn tập!");
+            } else {
+                savedIds.splice(index, 1);
+                showToast("Đã xóa khỏi Sổ tay ôn tập.");
+            }
+            localStorage.setItem("toanTin10_notebook", JSON.stringify(savedIds));
+            updateNotebookUI();
+            renderCards();
+        }
+
+        function clearNotebook() {
+            savedIds = [];
+            localStorage.setItem("toanTin10_notebook", JSON.stringify(savedIds));
+            updateNotebookUI();
+            renderCards();
+            showToast("Đã xóa toàn bộ Sổ tay ôn tập.");
+        }
+
+        function updateNotebookUI() {
+            document.getElementById("notebookCount").textContent = savedIds.length;
+            const listContainer = document.getElementById("notebookList");
+            const clearBtn = document.getElementById("clearNotebookBtn");
+
+            if (savedIds.length === 0) {
+                clearBtn.classList.add("hidden");
+                listContainer.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="w-14 h-14 mx-auto bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-3">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                        </div>
+                        <p class="font-bold text-slate-800 text-sm">Sổ tay của bạn đang trống</p>
+                        <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">Bấm vào biểu tượng đánh dấu trên từng thẻ bài học để gom các công thức cần ôn thi vào đây.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            clearBtn.classList.remove("hidden");
+            listContainer.innerHTML = savedIds.map(id => {
+                const item = lessonsData.find(x => x.id === id);
+                if (!item) return "";
+                return `
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 relative group">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <span class="text-[11px] font-bold text-blue-600 uppercase">${item.subject} • ${item.lessonNumber}</span>
+                                <h4 onclick="toggleNotebook(false); openDetailModal('${item.id}')" class="font-bold text-slate-900 text-sm hover:text-blue-600 cursor-pointer mt-0.5">
+                                    ${item.title}
+                                </h4>
+                            </div>
+                            <button onclick="toggleSaveItem('${item.id}')" class="text-slate-400 hover:text-red-600 p-1" title="Xóa khỏi sổ tay">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-2.5 bg-white border border-blue-100 rounded-lg p-2.5">
+                            <pre class="font-mono text-xs text-slate-700 whitespace-pre-wrap">${item.formulas[0].code}</pre>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function toggleNotebook(open) {
+            const drawer = document.getElementById("notebookDrawer");
+            if (open) {
+                updateNotebookUI();
+                drawer.classList.remove("hidden");
+                document.body.classList.add("overflow-hidden");
+            } else {
+                drawer.classList.add("hidden");
+                document.body.classList.remove("overflow-hidden");
+            }
+        }
+
+        // 10. TIỆN ÍCH SAO CHÉP & THÔNG BÁO TOAST
+        function copyFormula(text) {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");
+                showToast("Đã sao chép công thức vào bộ nhớ tạm!");
+            } catch (err) {
+                showToast("Không thể sao chép tự động.");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            document.getElementById("toastMessage").textContent = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 2500);
+        }
+
+        // Đóng màn hình giới thiệu nhóm
+        function closeWelcome() {
+            const welcome = document.getElementById("welcomeOverlay");
+            if (welcome) {
+                welcome.style.opacity = "0";
+                welcome.style.transition = "opacity .2s ease";
+                setTimeout(() => welcome.remove(), 220);
+            }
+        }
+
+        // Đóng modal khi bấm phím ESC
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeDetailModal();
+                toggleNotebook(false);
+                closeWelcome();
+            }
+        });
+
+        // KHỞI CHẠY LẦN ĐẦU
+        window.onload = function() {
+            renderFilters();
+            renderCards();
+            updateNotebookUI();
+        };
+    </script>
+</body>
+</html>
